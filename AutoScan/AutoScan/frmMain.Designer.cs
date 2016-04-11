@@ -32,18 +32,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupDJ = new System.Windows.Forms.GroupBox();
             this.btnOpenCom = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnAuto = new System.Windows.Forms.Button();
-            this.btnAAngle = new System.Windows.Forms.Button();
+            this.groupDJ = new System.Windows.Forms.GroupBox();
             this.nudAngle = new System.Windows.Forms.NumericUpDown();
+            this.btnAAngle = new System.Windows.Forms.Button();
+            this.btnAuto = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtResponse = new System.Windows.Forms.RichTextBox();
+            this.btnDistance = new System.Windows.Forms.Button();
+            this.picCurve = new System.Windows.Forms.PictureBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupDJ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAngle)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurve)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboComs
@@ -87,6 +92,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选择串口";
             // 
+            // btnOpenCom
+            // 
+            this.btnOpenCom.Location = new System.Drawing.Point(327, 20);
+            this.btnOpenCom.Name = "btnOpenCom";
+            this.btnOpenCom.Size = new System.Drawing.Size(92, 23);
+            this.btnOpenCom.TabIndex = 3;
+            this.btnOpenCom.Text = "打开串口";
+            this.btnOpenCom.UseVisualStyleBackColor = true;
+            this.btnOpenCom.Click += new System.EventHandler(this.btnOpenCom_Click);
+            // 
             // groupDJ
             // 
             this.groupDJ.Controls.Add(this.nudAngle);
@@ -101,46 +116,6 @@
             this.groupDJ.TabStop = false;
             this.groupDJ.Text = "舵机控制";
             // 
-            // btnOpenCom
-            // 
-            this.btnOpenCom.Location = new System.Drawing.Point(327, 20);
-            this.btnOpenCom.Name = "btnOpenCom";
-            this.btnOpenCom.Size = new System.Drawing.Size(92, 23);
-            this.btnOpenCom.TabIndex = 3;
-            this.btnOpenCom.Text = "打开串口";
-            this.btnOpenCom.UseVisualStyleBackColor = true;
-            this.btnOpenCom.Click += new System.EventHandler(this.btnOpenCom_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(8, 20);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 0;
-            this.btnReset.Text = "复  位";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // btnAuto
-            // 
-            this.btnAuto.Location = new System.Drawing.Point(91, 20);
-            this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(75, 23);
-            this.btnAuto.TabIndex = 1;
-            this.btnAuto.Text = "自动转动";
-            this.btnAuto.UseVisualStyleBackColor = true;
-            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
-            // 
-            // btnAAngle
-            // 
-            this.btnAAngle.Location = new System.Drawing.Point(182, 20);
-            this.btnAAngle.Name = "btnAAngle";
-            this.btnAAngle.Size = new System.Drawing.Size(152, 23);
-            this.btnAAngle.TabIndex = 2;
-            this.btnAAngle.Text = "转动到指定角度（0-180）";
-            this.btnAAngle.UseVisualStyleBackColor = true;
-            this.btnAAngle.Click += new System.EventHandler(this.btnAAngle_Click);
-            // 
             // nudAngle
             // 
             this.nudAngle.Location = new System.Drawing.Point(340, 23);
@@ -152,6 +127,36 @@
             this.nudAngle.Name = "nudAngle";
             this.nudAngle.Size = new System.Drawing.Size(79, 21);
             this.nudAngle.TabIndex = 3;
+            // 
+            // btnAAngle
+            // 
+            this.btnAAngle.Location = new System.Drawing.Point(182, 20);
+            this.btnAAngle.Name = "btnAAngle";
+            this.btnAAngle.Size = new System.Drawing.Size(152, 23);
+            this.btnAAngle.TabIndex = 2;
+            this.btnAAngle.Text = "转动到指定角度（0-180）";
+            this.btnAAngle.UseVisualStyleBackColor = true;
+            this.btnAAngle.Click += new System.EventHandler(this.btnAAngle_Click);
+            // 
+            // btnAuto
+            // 
+            this.btnAuto.Location = new System.Drawing.Point(91, 20);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(75, 23);
+            this.btnAuto.TabIndex = 1;
+            this.btnAuto.Text = "自动转动";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(8, 20);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 0;
+            this.btnReset.Text = "复  位";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // groupBox2
             // 
@@ -173,11 +178,44 @@
             this.txtResponse.TabIndex = 0;
             this.txtResponse.Text = "";
             // 
+            // btnDistance
+            // 
+            this.btnDistance.Location = new System.Drawing.Point(446, 33);
+            this.btnDistance.Name = "btnDistance";
+            this.btnDistance.Size = new System.Drawing.Size(88, 23);
+            this.btnDistance.TabIndex = 6;
+            this.btnDistance.Text = "测量距离";
+            this.btnDistance.UseVisualStyleBackColor = true;
+            this.btnDistance.Click += new System.EventHandler(this.btnDistance_Click);
+            // 
+            // picCurve
+            // 
+            this.picCurve.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.picCurve.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picCurve.Location = new System.Drawing.Point(3, 17);
+            this.picCurve.Name = "picCurve";
+            this.picCurve.Size = new System.Drawing.Size(386, 445);
+            this.picCurve.TabIndex = 7;
+            this.picCurve.TabStop = false;
+            this.picCurve.Paint += new System.Windows.Forms.PaintEventHandler(this.picCurve_Paint);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.picCurve);
+            this.groupBox3.Location = new System.Drawing.Point(443, 78);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(392, 465);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "曲线";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 555);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.btnDistance);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupDJ);
             this.Controls.Add(this.groupBox1);
@@ -189,6 +227,8 @@
             this.groupDJ.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudAngle)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picCurve)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -207,6 +247,9 @@
         private System.Windows.Forms.Button btnAuto;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RichTextBox txtResponse;
+        private System.Windows.Forms.Button btnDistance;
+        private System.Windows.Forms.PictureBox picCurve;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
 

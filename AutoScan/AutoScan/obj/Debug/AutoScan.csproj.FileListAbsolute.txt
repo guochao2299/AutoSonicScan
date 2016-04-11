@@ -5,4 +5,3 @@ G:\MyBlog\AutoScan\AutoScan\obj\Debug\AutoScan.Properties.Resources.resources
 G:\MyBlog\AutoScan\AutoScan\obj\Debug\AutoScan.csproj.GenerateResource.Cache
 G:\MyBlog\AutoScan\AutoScan\obj\Debug\AutoScan.exe
 G:\MyBlog\AutoScan\AutoScan\obj\Debug\AutoScan.pdb
-G:\MyBlog\AutoScan\AutoScan\obj\Debug\AutoScan.csprojResolveAssemblyReference.cache

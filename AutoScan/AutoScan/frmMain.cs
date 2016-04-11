@@ -13,53 +13,28 @@ namespace AutoScan
     public partial class frmMain : Form
     {
         private SerialPort m_sp = null;
+        private string DIST_COMMAND_END = "ROUNDEND";
+        private string DIST_COMMAND_D = "DT:";
+        private string DIST_COMMAND_A = "AG:";
+        private string DIST_COMMAND = "DIST;";//测量命令
         private string RESET_COMMAND = "RESET;"; //复位命令，复位到0
         private string CLOSE_COMMAND = "CLOSE;"; //关闭命令
         public string AUTO_COMMAND = "AUTO;";// 自动转动
         public string A_ANGLE_COMMAND = "AANGLE:{0};";// 指定角度，必须带一个0-180的参数
+        private Bitmap m_bitmap = null;
 
+        private List<PointF> m_points = new List<PointF>();
         public frmMain()
         {
             InitializeComponent();
-            /*SerialPort sp = null;
-            string inputStr = string.Empty;
-
-            Console.WriteLine("input cmd to port,input exit to exit");
-            inputStr = Console.ReadLine();
-
-            try
-            {
-                sp = new SerialPort("COM3", 9600);
-                sp.Open();
-
-                while (!string.Equals(inputStr.ToUpper(), "EXIT"))
-                {
-                    sp.WriteLine(inputStr);
-                    Console.WriteLine("input cmd to port,input exit to exit");
-                    inputStr = Console.ReadLine();
-                }       
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            finally
-            {
-                if (sp != null)
-                {
-                    sp.Close();
-                    sp.Dispose();
-                }
-            }                
-
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();  */          
+            m_bitmap = new Bitmap(this.picCurve.Width, this.picCurve.Height);
+            this.DoubleBuffered = true;
         }
 
         private void SerialDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
+            string indata = sp.ReadLine();
             UpdateSerialPortData(indata);
         }
 
@@ -72,8 +47,40 @@ namespace AutoScan
             }
             else
             {
-                txtResponse.Text += cnt;
+                txtResponse.Text = cnt + txtResponse.Text;
+                ParseResponse(cnt);
             }
+        }
+
+        private void ParseResponse(string cmdResponse)
+        {
+            if (cmdResponse.Contains(DIST_COMMAND_END))
+            {
+                using (Graphics g = Graphics.FromImage(m_bitmap))
+                {
+                    g.FillRectangle(SystemBrushes.ControlDark, picCurve.Bounds);
+                    this.picCurve.Image = m_bitmap;
+                }
+            }
+            else if (cmdResponse.Contains(DIST_COMMAND_D))
+            {
+                string subString = cmdResponse.TrimEnd('\r').Substring(cmdResponse.LastIndexOf(DIST_COMMAND_D) + DIST_COMMAND_D.Length);
+                if (subString.Contains(DIST_COMMAND_A))
+                {
+                    int angleIndex = subString.LastIndexOf(DIST_COMMAND_A);
+                    PointF p = new PointF();
+                    p.X=Convert.ToInt32(subString.Substring(angleIndex+DIST_COMMAND_A.Length));
+                    p.Y=Convert.ToSingle(subString.Substring(0,angleIndex));
+
+                    using (Graphics g = Graphics.FromImage(m_bitmap))
+                    {
+                        g.TranslateTransform(10, 10);
+                        g.FillEllipse(Brushes.Red, p.X - 1, p.Y - 1, 2, 2);
+                        this.picCurve.Image = m_bitmap;
+                    }
+                }
+            }
+
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -229,5 +236,28 @@ namespace AutoScan
                 this.Cursor = Cursors.Default;
             }      
         }
+
+        private void btnDistance_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                SendCommand(DIST_COMMAND);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("测量距离失败，错误消息为：" + ex.Message);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }         
+        }
+
+        private void picCurve_Paint(object sender, PaintEventArgs e)
+        {
+
+        }        
     }
 }
